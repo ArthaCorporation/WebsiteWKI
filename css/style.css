@@ -1,0 +1,276 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background: #f5f5f5;
+}
+
+/* ============================================
+   NAVBAR - DIAGONAL CUT (\ shape)
+   ============================================ */
+
+.custom-navbar {
+    position: relative;
+    height: 110px;
+    background: #0B5E8E; /* Blue base */
+    overflow: visible;
+}
+
+/* Orange section with CORRECT diagonal (\ shape) */
+.custom-navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: #FF7733;
+    /* THIS creates the \ diagonal (top-left to bottom-right) */
+    clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+    z-index: 1;
+}
+
+.navbar-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 50px;
+    z-index: 10;
+}
+
+/* ============================================
+   LEFT SIDE: Logo + Company Name
+   ============================================ */
+
+.navbar-brand-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+}
+
+.logo-box {
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Simple placeholder logo (3 bars) */
+.logo-bars {
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+}
+
+.logo-bars span {
+    width: 8px;
+    background: #0B5E8E;
+    border-radius: 2px;
+}
+
+.logo-bars span:nth-child(1) { height: 25px; }
+.logo-bars span:nth-child(2) { height: 35px; }
+.logo-bars span:nth-child(3) { height: 20px; }
+
+.company-name {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ============================================
+   RIGHT SIDE: Menu
+   ============================================ */
+
+.navbar-menu {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+    z-index: 10;
+}
+
+.menu-item {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 8px 0;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+}
+
+.menu-item:hover {
+    opacity: 0.85;
+}
+
+/* Active page indicator */
+.menu-item.active {
+    border-bottom: 3px solid white;
+}
+
+/* ============================================
+   DROPDOWN WITH DOWN ARROW (▼) - LIKE REFERENCE
+   ============================================ */
+
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* REMOVED padding-bottom - was causing misalignment */
+}
+
+/* DOWN ARROW (▼) next to text */
+.dropdown::after {
+    content: '▼';
+    font-size: 0.7rem;
+    transition: transform 0.3s;
+}
+
+.dropdown:hover::after {
+    transform: rotate(180deg); /* Flips to ▲ on hover */
+}
+
+/* Invisible hover bridge to prevent closing */
+.dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px; /* Bridge gap between menu and dropdown */
+    background: transparent;
+    display: none;
+}
+
+.dropdown:hover::before {
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 15px); /* Space for the invisible bridge */
+    left: 0;
+    background: white;
+    min-width: 280px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    padding: 15px 0;
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 25px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-content a:hover {
+    background: #f8f9fa;
+    border-left: 3px solid #0B5E8E;
+    color: #0B5E8E;
+}
+
+/* ============================================
+   Mobile Toggle
+   ============================================ */
+
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.mobile-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* ============================================
+   RESPONSIVE (Mobile)
+   ============================================ */
+
+@media (max-width: 992px) {
+    .custom-navbar {
+        height: 80px;
+    }
+    
+    .custom-navbar::before {
+        width: 100%;
+        clip-path: none;
+    }
+    
+    .company-name {
+        font-size: 1rem;
+    }
+    
+    .navbar-menu {
+        display: none;
+    }
+    
+    .mobile-toggle {
+        display: flex;
+    }
+}
+
+/* ============================================
+   CONTENT SPACING
+   ============================================ */
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
