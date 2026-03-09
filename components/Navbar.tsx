@@ -9,14 +9,25 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [tentangOpen, setTentangOpen] = useState(false)
   const [keberlanjutanOpen, setKeberlanjutanOpen] = useState(false)
+  const [mobileTentangOpen, setMobileTentangOpen] = useState(false)
+  const [mobileKeberlanjutanOpen, setMobileKeberlanjutanOpen] = useState(false)
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false)
+    setMobileTentangOpen(false)
+    setMobileKeberlanjutanOpen(false)
+  }
 
   const isActive = (path: string) => pathname === path
 
   return (
     <nav className="relative w-full h-[90px] bg-[#0B5E8E] overflow-visible z-50">
-      {/* Orange section with diagonal cut */}
+      {/* Orange section - full width on mobile, diagonal on desktop */}
       <div
-        className="absolute top-0 left-0 h-full bg-[#FF7733]"
+        className="absolute top-0 left-0 h-full bg-[#FF7733] w-full lg:hidden"
+      />
+      <div
+        className="hidden lg:block absolute top-0 left-0 h-full bg-[#FF7733]"
         style={{
           width: '42%',
           clipPath: 'polygon(0 0, 85% 0, 100% 100%, 0 100%)',
@@ -116,13 +127,13 @@ export default function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 bg-transparent border-none cursor-pointer z-10"
+          className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg bg-transparent hover:bg-white/20 active:bg-white/30 border-none cursor-pointer z-10 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          <span className="w-6 h-0.5 bg-white rounded block transition-all" />
-          <span className="w-6 h-0.5 bg-white rounded block transition-all" />
-          <span className="w-6 h-0.5 bg-white rounded block transition-all" />
+          <span className={`w-6 h-0.5 bg-white rounded block transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`w-6 h-0.5 bg-white rounded block transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
+          <span className={`w-6 h-0.5 bg-white rounded block transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
@@ -130,15 +141,53 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden absolute top-[90px] left-0 w-full bg-[#0B5E8E] z-40 shadow-lg">
           <div className="flex flex-col py-4">
-            <Link href="/" className="text-white px-8 py-3 hover:bg-[#0a527c] text-sm font-medium" onClick={() => setMobileOpen(false)}>BERANDA</Link>
-            <Link href="/tentang" className="text-white px-8 py-3 hover:bg-[#0a527c] text-sm font-medium" onClick={() => setMobileOpen(false)}>TENTANG KAMI</Link>
-            <Link href="/tentang" className="text-white px-12 py-2 hover:bg-[#0a527c] text-xs opacity-80" onClick={() => setMobileOpen(false)}>— Profil Perusahaan</Link>
-            <Link href="/tentang#visi-misi" className="text-white px-12 py-2 hover:bg-[#0a527c] text-xs opacity-80" onClick={() => setMobileOpen(false)}>— Visi &amp; Misi</Link>
-            <Link href="/berita" className="text-white px-8 py-3 hover:bg-[#0a527c] text-sm font-medium" onClick={() => setMobileOpen(false)}>BERITA</Link>
-            <Link href="/keberlanjutan" className="text-white px-8 py-3 hover:bg-[#0a527c] text-sm font-medium" onClick={() => setMobileOpen(false)}>KEBERLANJUTAN PERUSAHAAN</Link>
-            <Link href="/keberlanjutan" className="text-white px-12 py-2 hover:bg-[#0a527c] text-xs opacity-80" onClick={() => setMobileOpen(false)}>— Kebijakan Lingkungan</Link>
-            <Link href="/keberlanjutan#sertifikasi" className="text-white px-12 py-2 hover:bg-[#0a527c] text-xs opacity-80" onClick={() => setMobileOpen(false)}>— Sertifikasi</Link>
-            <Link href="/kontak" className="text-white px-8 py-3 hover:bg-[#0a527c] text-sm font-medium" onClick={() => setMobileOpen(false)}>HUBUNGI KAMI</Link>
+            <Link href="/" className="text-white px-8 py-3 hover:bg-white/10 active:bg-white/20 text-sm font-medium transition-colors" onClick={closeMobileMenu}>BERANDA</Link>
+
+            {/* TENTANG KAMI collapsible */}
+            <button
+              className="text-white px-8 py-3 hover:bg-white/10 active:bg-white/20 text-sm font-medium transition-colors flex items-center justify-between w-full text-left"
+              onClick={() => setMobileTentangOpen(!mobileTentangOpen)}
+            >
+              TENTANG KAMI
+              <svg className={`w-4 h-4 transition-transform duration-300 ${mobileTentangOpen ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {mobileTentangOpen && (
+              <div className="bg-[#0a4f78]">
+                <Link href="/tentang" className="text-white px-12 py-3 hover:bg-white/10 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
+                  <span className="w-1 h-1 bg-[#FF7733] rounded-full"></span> Profil Perusahaan
+                </Link>
+                <Link href="/tentang#visi-misi" className="text-white px-12 py-3 hover:bg-white/10 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
+                  <span className="w-1 h-1 bg-[#FF7733] rounded-full"></span> Visi &amp; Misi
+                </Link>
+              </div>
+            )}
+
+            <Link href="/berita" className="text-white px-8 py-3 hover:bg-white/10 active:bg-white/20 text-sm font-medium transition-colors" onClick={closeMobileMenu}>BERITA</Link>
+
+            {/* KEBERLANJUTAN collapsible */}
+            <button
+              className="text-white px-8 py-3 hover:bg-white/10 active:bg-white/20 text-sm font-medium transition-colors flex items-center justify-between w-full text-left"
+              onClick={() => setMobileKeberlanjutanOpen(!mobileKeberlanjutanOpen)}
+            >
+              KEBERLANJUTAN PERUSAHAAN
+              <svg className={`w-4 h-4 transition-transform duration-300 ${mobileKeberlanjutanOpen ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {mobileKeberlanjutanOpen && (
+              <div className="bg-[#0a4f78]">
+                <Link href="/keberlanjutan" className="text-white px-12 py-3 hover:bg-white/10 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
+                  <span className="w-1 h-1 bg-[#FF7733] rounded-full"></span> Kebijakan Lingkungan
+                </Link>
+                <Link href="/keberlanjutan#sertifikasi" className="text-white px-12 py-3 hover:bg-white/10 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
+                  <span className="w-1 h-1 bg-[#FF7733] rounded-full"></span> Sertifikasi
+                </Link>
+              </div>
+            )}
+
+            <Link href="/kontak" className="text-white px-8 py-3 hover:bg-white/10 active:bg-white/20 text-sm font-medium transition-colors" onClick={closeMobileMenu}>HUBUNGI KAMI</Link>
           </div>
         </div>
       )}
