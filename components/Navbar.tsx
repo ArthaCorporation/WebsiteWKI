@@ -60,13 +60,15 @@ export default function Navbar() {
               </svg>
             </div>
             {tentangOpen && (
-              <div className="absolute top-full left-0 mt-2 bg-white rounded shadow-xl min-w-[220px] py-2 z-50 animate-fade-in">
-                <Link href="/tentang" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all">
-                  Profil Perusahaan
-                </Link>
-                <Link href="/tentang#visi-misi" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all">
-                  Visi &amp; Misi
-                </Link>
+              <div className="absolute top-full left-0 pt-2 min-w-[220px] z-50">
+                <div className="bg-white rounded shadow-xl py-2 animate-fade-in">
+                  <Link href="/tentang" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
+                    Profil Perusahaan
+                  </Link>
+                  <Link href="/tentang#visi-misi" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
+                    Visi &amp; Misi
+                  </Link>
+                </div>
               </div>
             )}
           </div>
@@ -91,13 +93,15 @@ export default function Navbar() {
               </svg>
             </div>
             {keberlanjutanOpen && (
-              <div className="absolute top-full left-0 mt-2 bg-white rounded shadow-xl min-w-[220px] py-2 z-50 animate-fade-in">
-                <Link href="/keberlanjutan" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all">
-                  Kebijakan Lingkungan
-                </Link>
-                <Link href="/keberlanjutan#sertifikasi" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all">
-                  Sertifikasi
-                </Link>
+              <div className="absolute top-full left-0 pt-2 min-w-[220px] z-50">
+                <div className="bg-white rounded shadow-xl py-2 animate-fade-in">
+                  <Link href="/keberlanjutan" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
+                    Kebijakan Lingkungan
+                  </Link>
+                  <Link href="/keberlanjutan#sertifikasi" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
+                    Sertifikasi
+                  </Link>
+                </div>
               </div>
             )}
           </div>
