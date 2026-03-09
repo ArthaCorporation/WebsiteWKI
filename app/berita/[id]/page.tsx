@@ -1,81 +1,173 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
+import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
 
-export const metadata: Metadata = {
-  title: 'Detail Berita - PT. Wijaya Kencana Indonesia',
+interface Article {
+  id: string
+  title: string
+  content: string
+  imageUrl?: string
+  date: string
+  slug?: string
+  createdAt?: { seconds: number; nanoseconds: number } | null
 }
 
-const placeholderNews: Record<string, { title: string; content: string; date: string }> = {
-  '1': {
-    title: 'PT. Wijaya Kencana Indonesia Raih Penghargaan Tambang Berkelanjutan 2024',
-    content: `PT. Wijaya Kencana Indonesia berhasil meraih penghargaan bergengsi dalam kategori pertambangan berkelanjutan pada ajang penghargaan nasional tahun ini.
-
-Penghargaan ini merupakan bukti nyata komitmen perusahaan terhadap praktik pertambangan yang bertanggung jawab. Dalam acara yang dihadiri oleh lebih dari 500 pelaku industri dan pejabat pemerintah ini, PT. Wijaya Kencana Indonesia dinilai unggul dalam berbagai aspek.
-
-Kriteria penilaian meliputi pengelolaan limbah, reklamasi lahan pasca tambang, program pemberdayaan masyarakat sekitar, dan implementasi teknologi ramah lingkungan. PT. Wijaya Kencana Indonesia berhasil meraih nilai tertinggi di antara seluruh peserta.
-
-Direktur Utama PT. Wijaya Kencana Indonesia menyatakan bahwa penghargaan ini menjadi motivasi tambahan bagi seluruh tim untuk terus meningkatkan standar operasional dan dampak positif bagi lingkungan serta masyarakat.`,
-    date: '2024-12-15',
-  },
-  '2': {
-    title: 'Program CSR: Pemberdayaan Masyarakat di Sekitar Area Tambang',
-    content: `Sebagai wujud tanggung jawab sosial perusahaan, PT. Wijaya Kencana Indonesia meluncurkan program pemberdayaan masyarakat yang komprehensif.
-
-Program ini mencakup berbagai inisiatif strategis yang dirancang untuk memberikan dampak jangka panjang bagi komunitas lokal. Melalui pelatihan keterampilan vokasional, masyarakat sekitar area tambang mendapatkan akses kepada berbagai keterampilan yang relevan dengan kebutuhan pasar kerja.
-
-Selain itu, program beasiswa pendidikan yang kami kelola telah memberikan kesempatan kepada lebih dari 200 putra-putri daerah untuk mengakses pendidikan berkualitas. Pengembangan infrastruktur desa juga menjadi prioritas, dengan pembangunan fasilitas air bersih dan akses jalan.`,
-    date: '2024-11-20',
-  },
-  '3': {
-    title: 'Implementasi Teknologi Hijau dalam Operasional Pertambangan',
-    content: `PT. Wijaya Kencana Indonesia terus berinovasi dengan mengimplementasikan teknologi ramah lingkungan dalam setiap aspek operasional pertambangan.
-
-Inovasi terbaru mencakup penggunaan kendaraan tambang berbahan bakar hidrogen, sistem pengelolaan air limbah dengan teknologi biofiltasi terkini, dan panel surya untuk memenuhi kebutuhan energi fasilitas operasional.
-
-Langkah-langkah ini tidak hanya mengurangi emisi karbon secara signifikan, tetapi juga terbukti meningkatkan efisiensi operasional dan mengurangi biaya jangka panjang. Investasi dalam teknologi hijau ini sejalan dengan target perusahaan untuk mencapai net-zero emissions pada tahun 2040.`,
-    date: '2024-10-05',
-  },
+const formatDate = (dateStr: string) => {
+  const months = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
+  ]
+  const date = new Date(dateStr)
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 }
 
-interface PageProps {
-  params: Promise<{ id: string }>
-}
+export default function BeritaDetailPage() {
+  const { id } = useParams<{ id: string }>()
+  const [article, setArticle] = useState<Article | null>(null)
+  const [prevArticle, setPrevArticle] = useState<Article | null>(null)
+  const [nextArticle, setNextArticle] = useState<Article | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
 
-export default async function BeritaDetailPage({ params }: PageProps) {
-  const { id } = await params
-  const news = placeholderNews[id]
+  useEffect(() => {
+    let cancelled = false
 
-  if (!news) {
+    const fetchData = async () => {
+      try {
+        const docRef = doc(db, 'berita', id)
+        const docSnap = await getDoc(docRef)
+
+        if (cancelled) return
+
+        if (!docSnap.exists()) {
+          setNotFound(true)
+          setLoading(false)
+          return
+        }
+
+        const current: Article = { id: docSnap.id, ...(docSnap.data() as Omit<Article, 'id'>) }
+        setArticle(current)
+
+        const q = query(collection(db, 'berita'), orderBy('createdAt', 'asc'))
+        const snapshot = await getDocs(q)
+
+        if (cancelled) return
+
+        const all: Article[] = snapshot.docs.map((d) => ({
+          id: d.id,
+          ...(d.data() as Omit<Article, 'id'>),
+        }))
+
+        const idx = all.findIndex((a) => a.id === id)
+        setPrevArticle(idx > 0 ? all[idx - 1] : null)
+        setNextArticle(idx < all.length - 1 ? all[idx + 1] : null)
+      } catch (err) {
+        if (cancelled) return
+        console.error('Error fetching article:', err)
+        setNotFound(true)
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    fetchData()
+
+    return () => {
+      cancelled = true
+    }
+  }, [id])
+
+  if (loading) {
     return (
-      <div className="max-w-4xl mx-auto px-8 py-16 text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Berita tidak ditemukan</h1>
-        <Link href="/berita" className="text-[#0B5E8E] hover:underline">← Kembali ke Berita</Link>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0B5E8E]"></div>
       </div>
     )
   }
 
-  const formattedDate = new Date(news.date).toLocaleDateString('id-ID', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  if (notFound || !article) {
+    return (
+      <div className="max-w-4xl mx-auto px-8 py-16 text-center">
+        <h1 className="text-2xl font-bold text-gray-600">Artikel tidak ditemukan</h1>
+        <Link href="/berita" className="text-[#0B5E8E] hover:underline mt-4 inline-block">
+          ← Kembali ke Berita
+        </Link>
+      </div>
+    )
+  }
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-16">
-      <Link href="/berita" className="text-[#0B5E8E] hover:underline text-sm mb-8 inline-block">← Kembali ke Berita</Link>
-      
-      <div className="bg-white rounded-xl shadow-md p-8">
-        <p className="text-gray-500 text-sm mb-3">{formattedDate}</p>
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">{news.title}</h1>
-        
-        <div className="h-64 bg-gradient-to-r from-[#0B5E8E] to-[#1a7db8] rounded-lg mb-8 flex items-center justify-center">
-          <span className="text-white text-6xl">📰</span>
+    <div className="max-w-4xl mx-auto px-8 py-12">
+      <Link
+        href="/berita"
+        className="text-[#0B5E8E] hover:underline text-sm mb-8 inline-block font-medium"
+      >
+        ← Kembali ke Berita
+      </Link>
+
+      {article.imageUrl ? (
+        <div className="relative w-full mb-8 rounded-xl overflow-hidden max-h-[500px]">
+          <Image
+            src={article.imageUrl}
+            alt={article.title}
+            width={896}
+            height={500}
+            className="w-full object-cover rounded-xl max-h-[500px]"
+          />
         </div>
-        
-        <div className="prose prose-lg max-w-none">
-          {news.content.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="text-gray-600 leading-relaxed mb-4">{paragraph}</p>
-          ))}
+      ) : (
+        <div className="w-full mb-8 rounded-xl bg-gradient-to-r from-[#0B5E8E] to-[#FF7733] flex items-center justify-center" style={{ height: '300px' }}>
+          <span className="text-white text-7xl">📰</span>
+        </div>
+      )}
+
+      <h1 className="text-3xl font-bold text-[#0B5E8E] mb-3">{article.title}</h1>
+      <div className="w-16 h-1 bg-[#FF7733] mb-4" />
+
+      <div className="flex items-center gap-2 text-gray-500 mb-8">
+        <span>📅</span>
+        <span>{formatDate(article.date)}</span>
+      </div>
+
+      <div className="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap mb-12">
+        {article.content}
+      </div>
+
+      <hr className="border-gray-200 mb-8" />
+
+      <div className="flex justify-between gap-4">
+        <div>
+          {prevArticle && (
+            <Link
+              href={`/berita/${prevArticle.id}`}
+              className="flex items-center gap-2 px-6 py-3 bg-[#0B5E8E] text-white rounded-lg hover:bg-[#0a4f78] transition-colors"
+            >
+              <span>←</span>
+              <div>
+                <div className="text-xs opacity-75">Artikel Sebelumnya</div>
+                <div className="font-semibold text-sm line-clamp-1">{prevArticle.title}</div>
+              </div>
+            </Link>
+          )}
+        </div>
+        <div>
+          {nextArticle && (
+            <Link
+              href={`/berita/${nextArticle.id}`}
+              className="flex items-center gap-2 px-6 py-3 bg-[#FF7733] text-white rounded-lg hover:bg-[#e8662a] transition-colors"
+            >
+              <div className="text-right">
+                <div className="text-xs opacity-75">Artikel Berikutnya</div>
+                <div className="font-semibold text-sm line-clamp-1">{nextArticle.title}</div>
+              </div>
+              <span>→</span>
+            </Link>
+          )}
         </div>
       </div>
     </div>
