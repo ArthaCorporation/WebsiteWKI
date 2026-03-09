@@ -14,8 +14,7 @@ import {
   doc,
   Timestamp,
 } from 'firebase/firestore'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { auth, db, storage } from '@/lib/firebase'
+import { auth, db } from '@/lib/firebase'
 
 interface BeritaItem {
   id: string
@@ -63,6 +62,28 @@ export default function AdminDashboard() {
     return () => unsubscribe()
   }, [router, fetchBerita])
 
+  const uploadToCloudinary = async (file: File): Promise<string> => {
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    if (!cloudName || !uploadPreset) {
+      throw new Error('Cloudinary environment variables are not configured.')
+    }
+
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', uploadPreset)
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+      { method: 'POST', body: formData }
+    )
+    if (!response.ok) {
+      throw new Error(`Cloudinary upload failed: ${response.statusText}`)
+    }
+    const data = await response.json()
+    return data.secure_url as string
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
@@ -71,9 +92,7 @@ export default function AdminDashboard() {
       let imageUrl = ''
 
       if (imageFile) {
-        const imageRef = ref(storage, `berita/${Date.now()}_${imageFile.name}`)
-        await uploadBytes(imageRef, imageFile)
-        imageUrl = await getDownloadURL(imageRef)
+        imageUrl = await uploadToCloudinary(imageFile)
       }
 
       const beritaData = {
@@ -132,10 +151,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#0B5E8E] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Memuat...</p>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0B5E8E]"></div>
       </div>
     )
   }
