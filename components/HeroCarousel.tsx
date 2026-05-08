@@ -7,7 +7,7 @@ const slides = [
   {
     id: 1,
     title: 'PT. Wijaya Kencana Indonesia',
-    subtitle: 'Perusahaan Pertambangan Terpercaya',
+    subtitle: 'Perizinan Berusaha Pemanfaatan Hutan',
     bg: 'from-[#0B5E8E] to-[#1a7db8]',
     image: '/images/WKI_docum_1.jpeg',
   },
