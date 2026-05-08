@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const slides = [
   {
@@ -8,18 +9,21 @@ const slides = [
     title: 'PT. Wijaya Kencana Indonesia',
     subtitle: 'Perusahaan Pertambangan Terpercaya',
     bg: 'from-[#0B5E8E] to-[#1a7db8]',
+    image: '/images/WKI_docum_1.jpeg',
   },
   {
     id: 2,
     title: 'Komitmen Terhadap Keberlanjutan',
     subtitle: 'Mengelola Sumber Daya Alam Secara Bertanggung Jawab',
     bg: 'from-[#FF7733] to-[#ff9a66]',
+    image: '/images/WKI_docum_2.jpeg',
   },
   {
     id: 3,
     title: 'Inovasi & Teknologi',
     subtitle: 'Menggunakan Teknologi Terkini Dalam Operasional',
     bg: 'from-[#2d6a4f] to-[#40916c]',
+    image: '/images/WKI_docum_3.jpeg',
   },
 ]
 
@@ -41,11 +45,21 @@ export default function HeroCarousel() {
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 bg-gradient-to-r ${slide.bg} flex items-center justify-center transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}
         >
-          <div className="text-center text-white px-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{slide.title}</h1>
-            <p className="text-xl md:text-2xl opacity-90">{slide.subtitle}</p>
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            className="object-cover"
+            priority={index === 0}
+          />
+          <div className={`absolute inset-0 bg-gradient-to-r ${slide.bg} opacity-60`} />
+          <div className="relative flex items-center justify-center h-full">
+            <div className="text-center text-white px-8">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{slide.title}</h1>
+              <p className="text-xl md:text-2xl opacity-90">{slide.subtitle}</p>
+            </div>
           </div>
         </div>
       ))}

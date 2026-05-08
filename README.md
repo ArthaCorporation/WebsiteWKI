@@ -7,7 +7,8 @@ Website resmi PT. Wijaya Kencana Indonesia dibangun menggunakan **Next.js 14**, 
 - **Next.js 14** (App Router)
 - **TypeScript**
 - **Tailwind CSS**
-- **Firebase** (Firestore, Authentication, Storage)
+- **Firebase** (Firestore Database & Authentication)
+- **Cloudinary** (Image Storage & Optimization)
 
 ## Halaman
 
@@ -28,7 +29,7 @@ Website resmi PT. Wijaya Kencana Indonesia dibangun menggunakan **Next.js 14**, 
 ### 1. Clone & Install Dependencies
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ArthaCorporation/WebsiteWKI.git
 cd WebsiteWKI
 npm install
 ```
@@ -78,24 +79,34 @@ Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
 2. Klik **"Get started"**
 3. Pilih **"Email/Password"** → Aktifkan → Klik **"Save"**
 
-**Storage:**
-1. Di menu kiri, klik **"Storage"**
-2. Klik **"Get started"**
-3. Pilih mode **"Start in test mode"**
-4. Pilih lokasi → Klik **"Done"**
+### Langkah 4: Setup Cloudinary (Upload Gambar)
+Proyek ini menggunakan Cloudinary untuk meyimpan gambar karena lebih cepat dan sangat mudah dikonfigurasi.
+1. Buka [Cloudinary](https://cloudinary.com/) dan buat akun (gratis).
+2. Di Dashboard, catat **Cloud Name** Anda.
+3. Buka **Settings (ikon gir) → Upload**.
+4. Scroll ke bawah cari bagian **Upload presets**.
+5. Klik **"Add upload preset"**:
+   - Ganti **Signing Mode** menjadi **Unsigned** (PENTING!).
+   - Catat nama **Upload preset name**-nya.
+   - Klik **Save**.
 
-### Langkah 4: Isi File `.env.local`
+### Langkah 5: Isi File `.env.local`
 
 ```env
+# Konfigurasi Firebase (Firestore & Auth)
 NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSy...
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
 NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abc123
+
+# Konfigurasi Cloudinary (Image Upload)
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=nama_cloud_anda
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=nama_preset_unsigned_anda
 ```
 
-Nilai-nilai ini bisa ditemukan di:
+Nilai Firebase bisa ditemukan di:
 **Firebase Console → Project Settings → Your apps → SDK setup and configuration**
 
 ---

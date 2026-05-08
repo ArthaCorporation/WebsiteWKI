@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
@@ -38,12 +39,14 @@ export default function Navbar() {
       <div className="relative flex justify-between items-center h-full max-w-[1400px] mx-auto px-8 z-10">
         {/* Left: Logo + Company Name */}
         <Link href="/" className="flex items-center gap-4 no-underline">
-          <div className="bg-white p-2 rounded shadow-md">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="22" width="8" height="14" fill="#0B5E8E" rx="1"/>
-              <rect x="16" y="12" width="8" height="24" fill="#0B5E8E" rx="1"/>
-              <rect x="28" y="17" width="8" height="19" fill="#0B5E8E" rx="1"/>
-            </svg>
+          <div className="bg-white p-1.5 rounded shadow-md flex items-center justify-center h-[60px] w-[60px]">
+            <Image 
+              src="/images/WKI_logo.png" 
+              alt="PT. Wijaya Kencana Indonesia Logo"
+              width={50}
+              height={50}
+              className="h-full w-auto object-contain"
+            />
           </div>
           <span className="text-white font-serif text-xl font-light tracking-wide text-shadow">
             PT. Wijaya Kencana Indonesia
