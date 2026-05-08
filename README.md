@@ -29,8 +29,8 @@ Website resmi PT. Wijaya Kencana Indonesia dibangun menggunakan **Next.js 14**, 
 ### 1. Clone & Install Dependencies
 
 ```bash
-git clone https://github.com/ArthaCorporation/websitewijayakencanaindonesia.git
-cd websitewijayakencanaindonesia
+git clone https://github.com/ArthaCorporation/WebsiteWKI.git
+cd WebsiteWKI
 npm install
 ```
 
