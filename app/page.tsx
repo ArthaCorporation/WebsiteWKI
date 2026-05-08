@@ -13,14 +13,14 @@ export default function BerandaPage() {
           <div>
             <h2 className="text-3xl font-bold text-[#0B5E8E] mb-4">Kata Pengantar</h2>
             <div className="w-16 h-1 bg-[#FF7733] mb-6" />
-            <p className="text-gray-600 leading-relaxed mb-4">
-              Selamat datang di website resmi PT. Wijaya Kencana Indonesia. Kami adalah perusahaan pertambangan yang berkomitmen untuk mengelola sumber daya alam secara bertanggung jawab dan berkelanjutan.
+            <p className="text-gray-600 leading-relaxed mb-4 text-justify">
+              Selamat datang di Website resmi PT. Wijaya Kencana Indonesia.  PT. Wijaya Kencana Indonesia adalah Perusahaan Perizinan Berusaha Pemanfaatan Hutan untuk kegiatan pemanfaatan hasil hutan kayu hutan alam yang terletak di Kecamatan Halmahera Selatan Provinsi Maluku Utara.  
             </p>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              Dengan pengalaman lebih dari dua dekade, kami terus berinovasi dan memberikan yang terbaik bagi seluruh pemangku kepentingan, termasuk karyawan, masyarakat sekitar, dan lingkungan hidup.
+            <p className="text-gray-600 leading-relaxed mb-4 text-justify">
+              Pemanfaatan hutan yang dikelola oleh PBPH PT. Wijaya Kencana Indonesia berpedoman dalam kerangka keseimbangan diantara keseluruhan fungsi hutan yang meliputi fungsi produksi (ekonomi), ekologi dan social, yang didasarkan pada status fungsi kawasan hutan produksi yang dapat dimanfaatkan (dikelola).  Sehingga dalam misi nya PT. Wijaya Kencana Indonesia bertekad menjadi PBPH yang terkemuka dengan mengedepankan profesionalisme usaha, kelestarian hutan serta penerapan teknologi yang sesuai, guna diperoleh manfaat yang sebesar-besarnya bagi perusahaan, karyawan maupun Masyarakat sekitar hutan.
             </p>
-            <p className="text-gray-600 leading-relaxed">
-              Kami percaya bahwa keberhasilan bisnis harus berjalan seiring dengan tanggung jawab sosial dan pelestarian lingkungan untuk generasi mendatang.
+            <p className="text-gray-600 leading-relaxed text-justify">
+              Sebagai Perusahaan pemegang ijin PBPH, PT. Wijaya Kencana Indonesia berkomitmen pada pengelolaan hutan Lestari (PHL) untuk mengurangi dampak deforestasi dan berfokus pada pemanfaatan hutan keberlanjutan yang dikelola secara Lestari (<i>sustainable forest management/SFM</i>).
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -59,32 +59,40 @@ export default function BerandaPage() {
                   <span className="text-2xl">🏢</span>
                   <div>
                     <h4 className="font-semibold text-gray-800">KANTOR PUSAT</h4>
-                    <p className="text-gray-600 text-sm mt-1">Jl. Contoh No. 123, Jakarta Selatan, DKI Jakarta</p>
+                    <p className="text-gray-600 text-sm mt-1">Jalan Biawan No. 2 C, Desa Sidomulyo, Kecamatan Samarinda Ilir, Kota Samarinda, Kalimantan Timur</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-4 border border-gray-100 rounded-lg hover:shadow-sm transition-shadow">
                   <span className="text-2xl">📍</span>
                   <div>
-                    <h4 className="font-semibold text-gray-800">LOKASI BASE CAMP 1</h4>
-                    <p className="text-gray-600 text-sm mt-1">Kalimantan Timur, Indonesia</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-4 border border-gray-100 rounded-lg hover:shadow-sm transition-shadow">
-                  <span className="text-2xl">📍</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">LOKASI BASE CAMP 2</h4>
-                    <p className="text-gray-600 text-sm mt-1">Kalimantan Selatan, Indonesia</p>
+                    <h4 className="font-semibold text-gray-800">LOKASI BASE CAMP</h4>
+                    <p className="text-gray-600 text-sm mt-1">Desa Sosepe, Kabupaten Halmahera Selatan, Maluku Utara</p>
                   </div>
                 </div>
               </div>
             </div>
             <div>
               <h3 className="text-xl font-semibold text-gray-700 mb-6">Peta Lokasi</h3>
-              <div className="bg-gray-100 rounded-lg h-64 flex items-center justify-center border-2 border-dashed border-gray-300">
-                <div className="text-center text-gray-500">
-                  <span className="text-4xl block mb-2">🗺️</span>
-                  <p className="text-sm">Peta lokasi operasional</p>
-                  <p className="text-xs mt-1 opacity-70">Integrasi peta akan ditambahkan</p>
+              <div className="flex flex-col gap-6">
+                <div className="w-full h-48 rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                  <iframe 
+                    src="https://maps.google.com/maps?q=Jalan%20Biawan%20No.%202%20C,%20Samarinda&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0" 
+                    allowFullScreen={true} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Peta Kantor Pusat"
+                  ></iframe>
+                </div>
+                <div className="w-full h-48 rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                  <iframe 
+                    src="https://maps.google.com/maps?q=Desa%20Sosepe,%20Halmahera%20Selatan&t=&z=9&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0" 
+                    allowFullScreen={true} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Peta Base Camp"
+                  ></iframe>
                 </div>
               </div>
             </div>

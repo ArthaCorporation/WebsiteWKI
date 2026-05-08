@@ -26,7 +26,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800">Alamat</h3>
-                <p className="text-gray-600 mt-1">Jl. Contoh No. 123, Kebayoran Baru<br />Jakarta Selatan, DKI Jakarta 12160</p>
+                <p className="text-gray-600 mt-1">Jalan Biawan No. 2 C, Desa Sidomulyo, Kecamatan Samarinda Ilir<br />Kota Samarinda, Kalimantan Timur 75242</p>
               </div>
             </div>
 
@@ -38,8 +38,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800">Telepon</h3>
-                <p className="text-gray-600 mt-1">+62 21 1234 5678</p>
-                <p className="text-gray-600">+62 21 8765 4321</p>
+                <p className="text-gray-600 mt-1">+62 541-4116508</p>
               </div>
             </div>
 
@@ -51,8 +50,8 @@ export default function KontakPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800">Email</h3>
-                <p className="text-gray-600 mt-1">info@wki.co.id</p>
-                <p className="text-gray-600">humas@wki.co.id</p>
+                <p className="text-gray-600 mt-1"></p>
+                <p className="text-gray-600"></p>
               </div>
             </div>
 
@@ -64,8 +63,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800">Jam Operasional</h3>
-                <p className="text-gray-600 mt-1">Senin - Jumat: 08.00 - 17.00 WIB</p>
-                <p className="text-gray-600">Sabtu: 08.00 - 12.00 WIB</p>
+                <p className="text-gray-600 mt-1">Senin - Jumat: 08.00 - 17.00 WITA</p>
               </div>
             </div>
           </div>
