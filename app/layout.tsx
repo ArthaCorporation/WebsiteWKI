@@ -42,10 +42,9 @@ export default function RootLayout({
               <div>
                 <h3 className="text-lg font-semibold mb-4">Kontak</h3>
                 <p className="text-sm opacity-80 leading-relaxed">
-                  Jl. Contoh No. 123<br />
-                  Jakarta, Indonesia<br />
-                  Email: info@wki.co.id<br />
-                  Tel: +62 21 1234 5678
+                  Jalan Biawan No. 2 C, Desa Sidomulyo, Kecamatan Samarinda Ilir<br />
+                  Kota Samarinda, Kalimantan Timur, Indonesia<br />
+                  Tel: +62 541-4116508
                 </p>
               </div>
             </div>
