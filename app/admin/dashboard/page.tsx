@@ -36,6 +36,7 @@ export default function AdminDashboard() {
     content: '',
     date: new Date().toISOString().split('T')[0],
     slug: '',
+    imageUrl: '',
   })
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -63,25 +64,22 @@ export default function AdminDashboard() {
   }, [router, fetchBerita])
 
   const uploadToCloudinary = async (file: File): Promise<string> => {
-    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-    if (!cloudName || !uploadPreset) {
-      throw new Error('Cloudinary environment variables are not configured.')
-    }
-
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('upload_preset', uploadPreset)
 
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-      { method: 'POST', body: formData }
-    )
+    // Call our secure Next.js API Route instead of Cloudinary directly
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    })
+
     if (!response.ok) {
-      throw new Error(`Cloudinary upload failed: ${response.statusText}`)
+      const errorData = await response.json()
+      throw new Error(`Upload failed: ${errorData.error}`)
     }
+
     const data = await response.json()
-    return data.secure_url as string
+    return data.url as string
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -89,7 +87,7 @@ export default function AdminDashboard() {
     setSubmitting(true)
 
     try {
-      let imageUrl = ''
+      let imageUrl = formData.imageUrl
 
       if (imageFile) {
         imageUrl = await uploadToCloudinary(imageFile)
@@ -110,13 +108,14 @@ export default function AdminDashboard() {
         await addDoc(collection(db, 'berita'), beritaData)
       }
 
-      setFormData({ title: '', content: '', date: new Date().toISOString().split('T')[0], slug: '' })
+      setFormData({ title: '', content: '', date: new Date().toISOString().split('T')[0], slug: '', imageUrl: '' })
       setImageFile(null)
       setShowForm(false)
       setEditingId(null)
       fetchBerita()
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving berita:', err)
+      alert(`Gagal menyimpan berita: ${err?.message || 'Terjadi kesalahan'}`)
     } finally {
       setSubmitting(false)
     }
@@ -128,6 +127,7 @@ export default function AdminDashboard() {
       content: item.content,
       date: item.date,
       slug: item.slug,
+      imageUrl: item.imageUrl || '',
     })
     setEditingId(item.id)
     setShowForm(true)
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Kelola Berita</h2>
           <button
-            onClick={() => { setShowForm(true); setEditingId(null); setFormData({ title: '', content: '', date: new Date().toISOString().split('T')[0], slug: '' }) }}
+            onClick={() => { setShowForm(true); setEditingId(null); setFormData({ title: '', content: '', date: new Date().toISOString().split('T')[0], slug: '', imageUrl: '' }) }}
             className="bg-[#0B5E8E] text-white px-6 py-2 rounded-lg hover:bg-[#0a527c] transition-colors"
           >
             + Tambah Berita
