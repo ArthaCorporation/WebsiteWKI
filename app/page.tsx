@@ -1,5 +1,17 @@
+import type { Metadata } from 'next'
 import HeroCarousel from '@/components/HeroCarousel'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'PT. Wijaya Kencana Indonesia — Pemanfaatan Hutan Lestari',
+  description:
+    'Website resmi PT. Wijaya Kencana Indonesia (WKI), pemegang izin PBPH-HA di Kabupaten Halmahera Selatan, Maluku Utara. Berkomitmen pada pengelolaan hutan lestari dan keberlanjutan.',
+  openGraph: {
+    title: 'PT. Wijaya Kencana Indonesia',
+    description: 'Perusahaan pemanfaatan hasil hutan kayu hutan alam di Halmahera Selatan, Maluku Utara.',
+    type: 'website',
+  },
+}
 
 export default function BerandaPage() {
   return (
