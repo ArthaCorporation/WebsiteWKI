@@ -26,7 +26,7 @@ export default function RootLayout({
               <div>
                 <h3 className="text-lg font-semibold mb-4">PT. Wijaya Kencana Indonesia</h3>
                 <p className="text-sm opacity-80 leading-relaxed">
-                  Perusahaan pemanfaatan hasil hutan kayu tumbuh alami terpercaya yang berkomitmen terhadap keberlanjutan dan inovasi.
+                Perusahaan perizinan berusaha pemanfaatan hutan (PBPH) terpercaya yang berkomitmen terhadap keberlanjutan dan inovasi.
                 </p>
               </div>
               <div>
