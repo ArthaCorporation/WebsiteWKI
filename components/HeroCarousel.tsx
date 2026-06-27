@@ -16,14 +16,14 @@ const slides = [
     title: 'Komitmen Terhadap Keberlanjutan',
     subtitle: 'Mengelola Sumber Daya Alam Secara Bertanggung Jawab',
     bg: 'from-[#FF7733] to-[#ff9a66]',
-    image: '/images/WKI_docum_2.jpeg',
+    image: '/images/WKI_docum_5.jpeg',
   },
   {
     id: 3,
     title: 'Inovasi & Teknologi',
     subtitle: 'Menggunakan Teknologi Terkini Dalam Operasional',
     bg: 'from-[#2d6a4f] to-[#40916c]',
-    image: '/images/WKI_docum_3.jpeg',
+    image: '/images/WKI_docum_4.jpeg',
   },
 ]
 
