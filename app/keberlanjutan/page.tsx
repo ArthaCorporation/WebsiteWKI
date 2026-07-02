@@ -51,6 +51,12 @@ const documents = [
     tag: 'Lingkungan',
   },
   {
+    title: 'Surat Keputusan FSC',
+    description: 'Surat keputusan terkait komitmen perusahaan terhadap standar FSC.',
+    file: 'SK FSC.pdf',
+    tag: 'Sertifikasi',
+  },
+  {
     title: 'Surat Keputusan Penggunaan Pestisida',
     description: 'Ketentuan penggunaan pestisida secara aman dan bertanggung jawab.',
     file: 'SK Penggunaan Pestisida PT WKI.pdf',
