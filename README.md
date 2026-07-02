@@ -79,7 +79,7 @@ Key capabilities:
 - Company profile, vision & mission, operational locations with embedded Google Maps
 - News list and article detail pages — **server-rendered (SSR/ISR)** for full SEO indexability
 - Prev / next navigation between articles
-- Sustainability page (coming soon) and contact page
+- Sustainability page with PDF document previews and contact page
 - Per-page `<title>`, `<meta description>`, and Open Graph tags
 - Auto-generated `/sitemap.xml` including all articles
 
@@ -391,15 +391,15 @@ git push origin master
 
 4. Vercel auto-deploys on every push to `master`
 
-### 3. Post-deploy checklist
+### Post-deploy checklist
 
-- [ ] `/` — home page renders
-- [ ] `/berita` — article list loads
-- [ ] `/berita/[id]` — article detail opens; browser tab title matches the article title
-- [ ] `/sitemap.xml` — contains all static pages and articles
-- [ ] `/admin` → login works
-- [ ] Admin dashboard → create, edit, and delete an article
-- [ ] Admin dashboard → Kelola Admin tab (if `FIREBASE_SERVICE_ACCOUNT_KEY` is set)
+- [x] `/` — home page renders
+- [x] `/berita` — article list loads
+- [x] `/berita/[id]` — article detail opens; browser tab title matches the article title
+- [x] `/sitemap.xml` — contains all static pages and articles
+- [x] `/admin` → login works
+- [x] Admin dashboard → create, edit, and delete an article
+- [x] Admin dashboard → Kelola Admin tab (if `FIREBASE_SERVICE_ACCOUNT_KEY` is set)
 
 ### Deployment not picking up latest commit?
 
@@ -419,7 +419,7 @@ WebsiteWKI/
 │   ├── globals.css
 │   ├── sitemap.ts                   # Auto-generated /sitemap.xml
 │   ├── tentang/page.tsx             # About page
-│   ├── keberlanjutan/page.tsx       # Sustainability (coming soon)
+│   ├── keberlanjutan/page.tsx       # Sustainability documents and PDF previews
 │   ├── kontak/page.tsx              # Contact page
 │   ├── berita/
 │   │   ├── page.tsx                 # News list — SSR + ISR

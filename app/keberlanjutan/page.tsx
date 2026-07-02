@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import PdfThumbnail from '@/components/PdfThumbnail'
 
 export const metadata: Metadata = {
   title: 'Keberlanjutan Perusahaan - PT. Wijaya Kencana Indonesia',
@@ -128,12 +129,7 @@ export default function KeberlanjutanPage() {
               >
                 <div className="bg-[#F3F4F6]">
                   <div className="relative aspect-[16/11] w-full overflow-hidden bg-[#EEF2F7]">
-                    <iframe
-                      src={`${href}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
-                      title={`Pratinjau ${document.title}`}
-                      className="absolute -left-3 -top-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)] border-0 scale-[1.02] blur-[1.5px]"
-                      loading="lazy"
-                    />
+                    <PdfThumbnail src={href} title={document.title} />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-black/10" />
                   </div>
                 </div>
