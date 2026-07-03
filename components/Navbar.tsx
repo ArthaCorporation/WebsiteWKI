@@ -59,9 +59,9 @@ export default function Navbar() {
         }}
       />
 
-      <div className="relative flex items-center h-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10 lg:grid lg:grid-cols-[38%_1fr] lg:items-center">
-        <Link href="/" className="flex items-center gap-3 no-underline min-w-0 lg:pr-6 flex-1 lg:flex-none">
-          <div className="bg-white p-1.5 rounded shadow-md flex items-center justify-center h-[52px] w-[52px] xl:h-[56px] xl:w-[56px] shrink-0">
+      <div className="relative flex items-center justify-between gap-3 h-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10 lg:grid lg:grid-cols-[38%_1fr] lg:items-center lg:justify-normal">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 no-underline min-w-0 flex-1 overflow-hidden lg:pr-6 lg:flex-none">
+          <div className="bg-white p-1.5 rounded shadow-md flex items-center justify-center h-[48px] w-[48px] sm:h-[52px] sm:w-[52px] xl:h-[56px] xl:w-[56px] shrink-0">
             <Image
               src="/images/WKI_logo.png"
               alt="PT. Wijaya Kencana Indonesia Logo"
@@ -70,7 +70,7 @@ export default function Navbar() {
               className="h-full w-auto object-contain"
             />
           </div>
-          <span className="text-white font-serif text-base xl:text-lg font-light tracking-wide text-shadow leading-tight line-clamp-2">
+          <span className="text-white font-serif text-xs sm:text-sm lg:text-base xl:text-lg font-light tracking-wide text-shadow leading-tight truncate lg:line-clamp-2 lg:whitespace-normal">
             PT. Wijaya Kencana Indonesia
           </span>
         </Link>
@@ -138,7 +138,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="lg:hidden absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 flex flex-col gap-1.5 p-2 rounded-lg bg-transparent hover:bg-white/20 active:bg-white/30 border-none cursor-pointer z-10 transition-colors"
+          className="lg:hidden shrink-0 flex flex-col gap-1.5 p-2 rounded-lg bg-transparent hover:bg-white/20 active:bg-white/30 border-none cursor-pointer z-10 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
