@@ -35,7 +35,9 @@ export default function RootLayout({
                   <li><Link href="/" className="hover:opacity-100 transition-opacity">Beranda</Link></li>
                   <li><Link href="/tentang" className="hover:opacity-100 transition-opacity">Tentang Kami</Link></li>
                   <li><Link href="/berita" className="hover:opacity-100 transition-opacity">Berita</Link></li>
-                  <li><Link href="/keberlanjutan" className="hover:opacity-100 transition-opacity">Keberlanjutan</Link></li>
+                  <li><Link href="/kebijakan" className="hover:opacity-100 transition-opacity">Kebijakan</Link></li>
+                  <li><Link href="/kegiatan/operasional" className="hover:opacity-100 transition-opacity">Kegiatan Perusahaan</Link></li>
+                  <li><Link href="/sertifikat" className="hover:opacity-100 transition-opacity">Sertifikat</Link></li>
                   <li><Link href="/kontak" className="hover:opacity-100 transition-opacity">Hubungi Kami</Link></li>
                 </ul>
               </div>
