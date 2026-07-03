@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import PdfThumbnail from '@/components/PdfThumbnail'
 
 export const metadata: Metadata = {
   title: 'Tentang Kami - PT. Wijaya Kencana Indonesia',
   description: 'Profil dan sejarah PT. Wijaya Kencana Indonesia',
 }
+
+const strukturOrganisasiFile = 'Struktur Organisasi PT WKI 2025.pdf'
 
 export default function TentangPage() {
   return (
@@ -91,6 +95,40 @@ export default function TentangPage() {
             </ul>
           </div>
         </div>
+      </section>
+
+      {/* Struktur Organisasi */}
+      <section id="struktur-organisasi" className="scroll-mt-24 mt-16">
+        <h2 className="text-3xl font-bold text-[#0B5E8E] mb-2">Struktur Organisasi</h2>
+        <div className="w-16 h-1 bg-[#FF7733] mb-8" />
+
+        <p className="text-gray-600 leading-relaxed text-justify mb-8 max-w-3xl">
+          Berikut adalah bagan struktur organisasi PT. Wijaya Kencana Indonesia tahun 2025.
+        </p>
+
+        <article className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg max-w-2xl">
+          <div className="bg-[#F3F4F6]">
+            <div className="relative aspect-[16/11] w-full overflow-hidden bg-[#EEF2F7]">
+              <PdfThumbnail src={`/${encodeURIComponent(strukturOrganisasiFile)}`} title="Struktur Organisasi PT WKI 2025" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-black/10" />
+            </div>
+          </div>
+
+          <div className="p-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Bagan Struktur Organisasi 2025</h3>
+            <p className="text-sm text-gray-500 mb-4">
+              Struktur organisasi resmi PT. Wijaya Kencana Indonesia.
+            </p>
+            <Link
+              href={`/${encodeURIComponent(strukturOrganisasiFile)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-lg bg-[#0B5E8E] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#095177]"
+            >
+              Buka PDF
+            </Link>
+          </div>
+        </article>
       </section>
     </div>
   )

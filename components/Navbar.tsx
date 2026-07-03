@@ -1,26 +1,52 @@
 'use client'
- 'use client'
 
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
+
+type DropdownKey = 'tentang' | 'kegiatan' | null
 
 export default function Navbar() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [tentangOpen, setTentangOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<DropdownKey>(null)
   const [mobileTentangOpen, setMobileTentangOpen] = useState(false)
+  const [mobileKegiatanOpen, setMobileKegiatanOpen] = useState(false)
 
   const closeMobileMenu = () => {
     setMobileOpen(false)
     setMobileTentangOpen(false)
+    setMobileKegiatanOpen(false)
   }
 
   const isActive = (path: string) => pathname === path
 
+  const isActivePrefix = (prefix: string) => pathname.startsWith(prefix)
+
   const navLinkClass = (path: string) =>
     `text-white text-sm font-medium tracking-wide transition-all pb-1 px-2 py-1 rounded hover:bg-white/20 active:bg-white/30 ${isActive(path) ? 'border-b-2 border-white' : ''}`
+
+  const dropdownButtonClass = (active: boolean) =>
+    `flex items-center gap-1 text-white text-sm font-medium tracking-wide transition-all pb-1 px-2 py-1 rounded hover:bg-white/20 active:bg-white/30 cursor-pointer ${active ? 'border-b-2 border-white' : ''}`
+
+  const ChevronIcon = ({ open }: { open: boolean }) => (
+    <svg className={`w-3 h-3 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+  )
+
+  const DropdownLink = ({ href, children }: { href: string; children: ReactNode }) => (
+    <Link href={href} className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
+      {children}
+    </Link>
+  )
+
+  const MobileSubLink = ({ href, children }: { href: string; children: ReactNode }) => (
+    <Link href={href} className="text-white px-12 py-3 hover:bg-white/20 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
+      <span className="w-1.5 h-1.5 bg-[#FF7733] rounded-full flex-shrink-0" /> {children}
+    </Link>
+  )
 
   return (
     <nav className="relative w-full h-[90px] bg-[#0B5E8E] overflow-visible z-50">
@@ -49,33 +75,26 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-1 xl:gap-2">
           <Link href="/" className={navLinkClass('/')}>
             BERANDA
           </Link>
 
           <div
             className="relative"
-            onMouseEnter={() => setTentangOpen(true)}
-            onMouseLeave={() => setTentangOpen(false)}
+            onMouseEnter={() => setOpenDropdown('tentang')}
+            onMouseLeave={() => setOpenDropdown(null)}
           >
-            <button
-              className={`flex items-center gap-1 text-white text-sm font-medium tracking-wide transition-all pb-1 px-2 py-1 rounded hover:bg-white/20 active:bg-white/30 cursor-pointer ${isActive('/tentang') ? 'border-b-2 border-white' : ''}`}
-            >
+            <button className={dropdownButtonClass(isActive('/tentang'))}>
               TENTANG KAMI
-              <svg className={`w-3 h-3 transition-transform duration-300 ${tentangOpen ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
+              <ChevronIcon open={openDropdown === 'tentang'} />
             </button>
-            {tentangOpen && (
+            {openDropdown === 'tentang' && (
               <div className="absolute top-full left-0 pt-2 min-w-[220px] z-50">
                 <div className="bg-white rounded shadow-xl py-2">
-                  <Link href="/tentang" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
-                    Profil Perusahaan
-                  </Link>
-                  <Link href="/tentang#visi-misi" className="block px-6 py-3 text-gray-700 text-sm hover:bg-gray-50 hover:text-[#0B5E8E] hover:border-l-4 hover:border-[#0B5E8E] transition-all whitespace-nowrap">
-                    Visi &amp; Misi
-                  </Link>
+                  <DropdownLink href="/tentang">Profil Perusahaan</DropdownLink>
+                  <DropdownLink href="/tentang#visi-misi">Visi &amp; Misi</DropdownLink>
+                  <DropdownLink href="/tentang#struktur-organisasi">Struktur Organisasi</DropdownLink>
                 </div>
               </div>
             )}
@@ -85,8 +104,32 @@ export default function Navbar() {
             BERITA
           </Link>
 
-          <Link href="/keberlanjutan" className={navLinkClass('/keberlanjutan')}>
-            KEBERLANJUTAN PERUSAHAAN
+          <Link href="/kebijakan" className={navLinkClass('/kebijakan')}>
+            KEBIJAKAN PERUSAHAAN
+          </Link>
+
+          <div
+            className="relative"
+            onMouseEnter={() => setOpenDropdown('kegiatan')}
+            onMouseLeave={() => setOpenDropdown(null)}
+          >
+            <button className={dropdownButtonClass(isActivePrefix('/kegiatan'))}>
+              KEGIATAN PERUSAHAAN
+              <ChevronIcon open={openDropdown === 'kegiatan'} />
+            </button>
+            {openDropdown === 'kegiatan' && (
+              <div className="absolute top-full left-0 pt-2 min-w-[240px] z-50">
+                <div className="bg-white rounded shadow-xl py-2">
+                  <DropdownLink href="/kegiatan/operasional">Kegiatan Operasional</DropdownLink>
+                  <DropdownLink href="/kegiatan/lingkungan">Kegiatan Lingkungan</DropdownLink>
+                  <DropdownLink href="/kegiatan/sosial">Kegiatan Sosial</DropdownLink>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link href="/sertifikat" className={navLinkClass('/sertifikat')}>
+            SERTIFIKAT
           </Link>
 
           <Link href="/kontak" className={navLinkClass('/kontak')}>
@@ -106,7 +149,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden absolute top-[90px] left-0 w-full bg-[#0B5E8E] z-40 shadow-lg">
+        <div className="lg:hidden absolute top-[90px] left-0 w-full bg-[#0B5E8E] z-40 shadow-lg max-h-[calc(100vh-90px)] overflow-y-auto">
           <div className="flex flex-col py-4">
             <Link href="/" className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors" onClick={closeMobileMenu}>BERANDA</Link>
 
@@ -115,23 +158,35 @@ export default function Navbar() {
               onClick={() => setMobileTentangOpen(!mobileTentangOpen)}
             >
               TENTANG KAMI
-              <svg className={`w-4 h-4 transition-transform duration-300 ${mobileTentangOpen ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
+              <ChevronIcon open={mobileTentangOpen} />
             </button>
             {mobileTentangOpen && (
               <div className="bg-[#0a4f78]">
-                <Link href="/tentang" className="text-white px-12 py-3 hover:bg-white/20 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
-                  <span className="w-1.5 h-1.5 bg-[#FF7733] rounded-full flex-shrink-0" /> Profil Perusahaan
-                </Link>
-                <Link href="/tentang#visi-misi" className="text-white px-12 py-3 hover:bg-white/20 text-sm flex items-center gap-2 transition-colors" onClick={closeMobileMenu}>
-                  <span className="w-1.5 h-1.5 bg-[#FF7733] rounded-full flex-shrink-0" /> Visi &amp; Misi
-                </Link>
+                <MobileSubLink href="/tentang">Profil Perusahaan</MobileSubLink>
+                <MobileSubLink href="/tentang#visi-misi">Visi &amp; Misi</MobileSubLink>
+                <MobileSubLink href="/tentang#struktur-organisasi">Struktur Organisasi</MobileSubLink>
               </div>
             )}
 
             <Link href="/berita" className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors" onClick={closeMobileMenu}>BERITA</Link>
-            <Link href="/keberlanjutan" className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors" onClick={closeMobileMenu}>KEBERLANJUTAN PERUSAHAAN</Link>
+            <Link href="/kebijakan" className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors" onClick={closeMobileMenu}>KEBIJAKAN PERUSAHAAN</Link>
+
+            <button
+              className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors flex items-center justify-between w-full text-left"
+              onClick={() => setMobileKegiatanOpen(!mobileKegiatanOpen)}
+            >
+              KEGIATAN PERUSAHAAN
+              <ChevronIcon open={mobileKegiatanOpen} />
+            </button>
+            {mobileKegiatanOpen && (
+              <div className="bg-[#0a4f78]">
+                <MobileSubLink href="/kegiatan/operasional">Kegiatan Operasional</MobileSubLink>
+                <MobileSubLink href="/kegiatan/lingkungan">Kegiatan Lingkungan</MobileSubLink>
+                <MobileSubLink href="/kegiatan/sosial">Kegiatan Sosial</MobileSubLink>
+              </div>
+            )}
+
+            <Link href="/sertifikat" className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors" onClick={closeMobileMenu}>SERTIFIKAT</Link>
             <Link href="/kontak" className="text-white px-8 py-3 hover:bg-white/20 active:bg-white/30 text-sm font-medium transition-colors" onClick={closeMobileMenu}>HUBUNGI KAMI</Link>
           </div>
         </div>
