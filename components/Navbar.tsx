@@ -75,7 +75,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center justify-end gap-0 min-w-0 pl-4">
+        <div className="hidden lg:flex items-center justify-end gap-1.5 xl:gap-2 2xl:gap-2.5 min-w-0 pl-4">
           <Link href="/" className={navLinkClass('/')}>
             BERANDA
           </Link>
