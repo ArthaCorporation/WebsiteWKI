@@ -39,9 +39,9 @@ export default function KegiatanSosialPage() {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="relative aspect-[4/3] bg-gray-100">
+            <div className="relative aspect-[3/4] bg-gray-100">
               <Image
-                src="/images/WKI_docum_3.jpeg"
+                src="/kegiatan/masjid.jpg"
                 alt="Pembangunan Masjid di Desa Sosepe"
                 fill
                 className="object-cover"
@@ -54,7 +54,7 @@ export default function KegiatanSosialPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="relative aspect-[4/3] bg-gray-100">
               <Image
-                src="/images/WKI_docum_4.jpeg"
+                src="/kegiatan/jalan.jpg"
                 alt="Pembuatan Jalan Penghubung Antara Desa Sosepe dan Desa Kelo"
                 fill
                 className="object-cover"

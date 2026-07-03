@@ -25,13 +25,13 @@ export default function Navbar() {
   const isActivePrefix = (prefix: string) => pathname.startsWith(prefix)
 
   const navLinkClass = (path: string) =>
-    `text-white text-sm font-medium tracking-wide transition-all pb-1 px-2 py-1 rounded hover:bg-white/20 active:bg-white/30 ${isActive(path) ? 'border-b-2 border-white' : ''}`
+    `text-white text-[10px] xl:text-[11px] 2xl:text-xs font-medium tracking-normal whitespace-nowrap transition-all py-1 px-1 xl:px-1.5 2xl:px-2 rounded hover:bg-white/20 active:bg-white/30 ${isActive(path) ? 'border-b-2 border-white' : ''}`
 
   const dropdownButtonClass = (active: boolean) =>
-    `flex items-center gap-1 text-white text-sm font-medium tracking-wide transition-all pb-1 px-2 py-1 rounded hover:bg-white/20 active:bg-white/30 cursor-pointer ${active ? 'border-b-2 border-white' : ''}`
+    `flex items-center gap-0.5 text-white text-[10px] xl:text-[11px] 2xl:text-xs font-medium tracking-normal whitespace-nowrap transition-all py-1 px-1 xl:px-1.5 2xl:px-2 rounded hover:bg-white/20 active:bg-white/30 cursor-pointer ${active ? 'border-b-2 border-white' : ''}`
 
   const ChevronIcon = ({ open }: { open: boolean }) => (
-    <svg className={`w-3 h-3 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
+    <svg className={`w-2.5 h-2.5 shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
       <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
     </svg>
   )
@@ -54,14 +54,14 @@ export default function Navbar() {
       <div
         className="hidden lg:block absolute top-0 left-0 h-full bg-[#FF7733]"
         style={{
-          width: '42%',
-          clipPath: 'polygon(0 0, 85% 0, 100% 100%, 0 100%)',
+          width: '38%',
+          clipPath: 'polygon(0 0, 82% 0, 100% 100%, 0 100%)',
         }}
       />
 
-      <div className="relative flex justify-between items-center h-full max-w-[1400px] mx-auto px-8 z-10">
-        <Link href="/" className="flex items-center gap-4 no-underline">
-          <div className="bg-white p-1.5 rounded shadow-md flex items-center justify-center h-[60px] w-[60px]">
+      <div className="relative flex items-center h-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10 lg:grid lg:grid-cols-[38%_1fr] lg:items-center">
+        <Link href="/" className="flex items-center gap-3 no-underline min-w-0 lg:pr-6 flex-1 lg:flex-none">
+          <div className="bg-white p-1.5 rounded shadow-md flex items-center justify-center h-[52px] w-[52px] xl:h-[56px] xl:w-[56px] shrink-0">
             <Image
               src="/images/WKI_logo.png"
               alt="PT. Wijaya Kencana Indonesia Logo"
@@ -70,12 +70,12 @@ export default function Navbar() {
               className="h-full w-auto object-contain"
             />
           </div>
-          <span className="text-white font-serif text-xl font-light tracking-wide text-shadow">
+          <span className="text-white font-serif text-base xl:text-lg font-light tracking-wide text-shadow leading-tight line-clamp-2">
             PT. Wijaya Kencana Indonesia
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+        <div className="hidden lg:flex items-center justify-end gap-0 min-w-0 pl-4">
           <Link href="/" className={navLinkClass('/')}>
             BERANDA
           </Link>
@@ -138,7 +138,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg bg-transparent hover:bg-white/20 active:bg-white/30 border-none cursor-pointer z-10 transition-colors"
+          className="lg:hidden absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 flex flex-col gap-1.5 p-2 rounded-lg bg-transparent hover:bg-white/20 active:bg-white/30 border-none cursor-pointer z-10 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
