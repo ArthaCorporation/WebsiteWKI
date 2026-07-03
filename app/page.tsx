@@ -49,10 +49,10 @@ export default function BerandaPage() {
               BERITA
             </Link>
             <Link
-              href="/keberlanjutan"
+              href="/kebijakan"
               className="bg-[#FFC107] text-gray-800 text-center py-5 px-8 rounded-lg font-semibold text-lg hover:bg-[#ffb300] transition-colors shadow-md"
             >
-              KEBERLANJUTAN
+              KEBIJAKAN
             </Link>
           </div>
         </div>

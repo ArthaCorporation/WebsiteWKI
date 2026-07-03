@@ -4,8 +4,8 @@ import Link from 'next/link'
 import PdfThumbnail from '@/components/PdfThumbnail'
 
 export const metadata: Metadata = {
-  title: 'Keberlanjutan Perusahaan - PT. Wijaya Kencana Indonesia',
-  description: 'Komitmen PT. Wijaya Kencana Indonesia terhadap keberlanjutan dan lingkungan',
+  title: 'Kebijakan Perusahaan - PT. Wijaya Kencana Indonesia',
+  description: 'Dokumen kebijakan PT. Wijaya Kencana Indonesia terkait keselamatan kerja, kepatuhan, dan pengelolaan lingkungan',
 }
 
 const documents = [
@@ -83,7 +83,7 @@ const documents = [
   },
 ]
 
-export default function KeberlanjutanPage() {
+export default function KebijakanPage() {
   return (
     <div className="bg-white">
       <section className="relative overflow-hidden bg-[#0B5E8E] text-white">
@@ -99,8 +99,8 @@ export default function KeberlanjutanPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-8 py-20">
-          <p className="uppercase tracking-[0.25em] text-white/70 text-xs mb-4">Keberlanjutan</p>
-          <h1 className="text-3xl md:text-5xl font-bold max-w-3xl leading-tight mb-4">Dokumen kebijakan dan komitmen keberlanjutan PT. Wijaya Kencana Indonesia</h1>
+          <p className="uppercase tracking-[0.25em] text-white/70 text-xs mb-4">Kebijakan</p>
+          <h1 className="text-3xl md:text-5xl font-bold max-w-3xl leading-tight mb-4">Dokumen kebijakan PT. Wijaya Kencana Indonesia</h1>
           <p className="max-w-3xl text-white/85 text-base md:text-lg leading-relaxed">
             Halaman ini menampilkan dokumen-dokumen yang mendukung penerapan keselamatan kerja, kepatuhan, dan pengelolaan lingkungan yang bertanggung jawab.
           </p>
@@ -120,7 +120,7 @@ export default function KeberlanjutanPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {documents.map((document) => {
-            const href = `/keberlanjutan/${encodeURIComponent(document.file)}`
+            const href = `/kebijakan/${encodeURIComponent(document.file)}`
 
             return (
               <article
