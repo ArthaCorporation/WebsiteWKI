@@ -121,7 +121,7 @@ export default function KegiatanOperasionalPage() {
       <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-8">
           <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#0B5E8E]">Dokumentasi Kegiatan Operasional</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#0B5E8E]">SOP Kegiatan Operasional</h2>
             <div className="w-16 h-1 bg-[#FF7733] mt-3" />
             <p className="mt-4 text-gray-600 max-w-3xl">
               Standar Operasional Prosedur (SOP) kegiatan operasional PT. Wijaya Kencana Indonesia.
