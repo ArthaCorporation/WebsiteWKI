@@ -8,15 +8,17 @@ import {
 } from '@/lib/contact-validation'
 
 function getMailer() {
-  const user = process.env.GMAIL_USER
-  const pass = process.env.GMAIL_APP_PASSWORD
+  const user = process.env.GMAIL_USER?.trim()
+  const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, '')
 
   if (!user || !pass) {
-    throw new Error('Email belum dikonfigurasi. Atur GMAIL_USER dan GMAIL_APP_PASSWORD.')
+    throw new Error('MISSING_GMAIL_CONFIG')
   }
 
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: { user, pass },
   })
 }
@@ -67,8 +69,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Contact form error:', error)
+
+    if (error instanceof Error && error.message === 'MISSING_GMAIL_CONFIG') {
+      return NextResponse.json(
+        { error: 'Layanan email belum dikonfigurasi di server.' },
+        { status: 503 }
+      )
+    }
+
     return NextResponse.json(
-      { error: 'Gagal mengirim pesan. Silakan coba lagi nanti.' },
+      { error: 'Gagal mengirim pesan. Periksa konfigurasi email atau coba lagi nanti.' },
       { status: 500 }
     )
   }
