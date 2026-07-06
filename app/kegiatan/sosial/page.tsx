@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import KegiatanDocumentCard from '@/components/KegiatanDocumentCard'
 
 export const metadata: Metadata = {
   title: 'Kegiatan Sosial - PT. Wijaya Kencana Indonesia',
@@ -41,7 +42,7 @@ export default function KegiatanSosialPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-[#0B5E8E] mb-2">Dokumentasi Kegiatan Sosial</h2>
           <div className="w-16 h-1 bg-[#FF7733] mb-8" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="relative aspect-[3/4] bg-gray-100">
                 <Image
@@ -69,6 +70,18 @@ export default function KegiatanSosialPage() {
               </div>
             </div>
           </div>
+
+          <div className="mb-8">
+            <h3 className="text-xl font-bold text-[#0B5E8E] mb-2">SOP Identifikasi, Pemetaan, dan Resolusi Konflik</h3>
+            <p className="text-gray-600 max-w-3xl">
+              Standar operasional prosedur identifikasi, pemetaan, dan resolusi konflik PT. Wijaya Kencana Indonesia.
+            </p>
+          </div>
+
+          <KegiatanDocumentCard
+            title="SOP Identifikasi, Pemetaan, dan Resolusi Konflik"
+            file="SOP Identifikasi/Pemetaan/Resolusi Konflik.pdf"
+          />
         </div>
       </section>
     </div>
