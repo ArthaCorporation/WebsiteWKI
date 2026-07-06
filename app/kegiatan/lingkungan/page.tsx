@@ -101,7 +101,7 @@ export default function KegiatanLingkunganPage() {
 
           <KegiatanDocumentCard
             title="Ringkasan Pemantauan Dampak Lingkungan dan Sosial"
-            file="Ringkasan Pemantauan Dampak Lingkungan dan Sosial PT WKI_fix.pdf"
+            file="Ringkasan Pemantauan Dampak Lingkungan dan Sosial PT WKI_fix-1.pdf"
           />
         </div>
       </section>
