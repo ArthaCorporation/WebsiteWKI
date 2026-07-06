@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import KegiatanDocumentCard from '@/components/KegiatanDocumentCard'
 import Link from 'next/link'
 import PdfThumbnail from '@/components/PdfThumbnail'
 
@@ -159,6 +160,23 @@ export default function KegiatanOperasionalPage() {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#0B5E8E]">Dokumen Manajemen Plan</h2>
+            <div className="w-16 h-1 bg-[#FF7733] mt-3" />
+            <p className="mt-4 text-gray-600 max-w-3xl">
+              Ringkasan publik perusahaan — dokumen manajemen plan PT. Wijaya Kencana Indonesia.
+            </p>
+          </div>
+
+          <KegiatanDocumentCard
+            title="Dokumen Manajemen Plan (Ringkasan Publik Perusahaan)"
+            file="Manajement Plan.pdf"
+          />
         </div>
       </section>
     </div>
