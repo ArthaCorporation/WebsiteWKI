@@ -8,7 +8,15 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 declare global {
   interface Window {
     turnstile?: {
-      render: (container: HTMLElement, options: { sitekey: string; callback: (token: string) => void; 'expired-callback': () => void }) => string
+      render: (
+        container: HTMLElement,
+        options: {
+          sitekey: string
+          callback: (token: string) => void
+          'expired-callback': () => void
+          'error-callback'?: () => void
+        }
+      ) => string
       reset: (widgetId?: string) => void
     }
     onTurnstileLoad?: () => void
@@ -25,6 +33,13 @@ export default function ContactForm() {
   const [errorMessage, setErrorMessage] = useState('')
   const [turnstileReady, setTurnstileReady] = useState(false)
 
+  const resetTurnstile = () => {
+    turnstileTokenRef.current = ''
+    if (widgetIdRef.current && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current)
+    }
+  }
+
   const renderTurnstile = () => {
     if (!TURNSTILE_SITE_KEY || !turnstileRef.current || !window.turnstile || widgetIdRef.current) return
 
@@ -34,6 +49,9 @@ export default function ContactForm() {
         turnstileTokenRef.current = token
       },
       'expired-callback': () => {
+        turnstileTokenRef.current = ''
+      },
+      'error-callback': () => {
         turnstileTokenRef.current = ''
       },
     })
@@ -80,18 +98,18 @@ export default function ContactForm() {
         }),
       })
 
-      const result = (await response.json()) as { error?: string }
+      const result = (await response.json()) as { error?: string; turnstileError?: boolean }
 
       if (!response.ok) {
+        if (result.turnstileError) {
+          resetTurnstile()
+        }
         throw new Error(result.error ?? 'Gagal mengirim pesan.')
       }
 
       form.reset()
       loadedAtRef.current = Date.now()
-      turnstileTokenRef.current = ''
-      if (widgetIdRef.current && window.turnstile) {
-        window.turnstile.reset(widgetIdRef.current)
-      }
+      resetTurnstile()
       setStatus('success')
     } catch (error) {
       setStatus('error')

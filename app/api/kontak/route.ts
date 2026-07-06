@@ -30,9 +30,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: validation.error }, { status: 400 })
     }
 
-    const turnstileOk = await verifyTurnstileToken(body.turnstileToken)
-    if (!turnstileOk) {
-      return NextResponse.json({ error: 'Verifikasi keamanan gagal. Silakan coba lagi.' }, { status: 400 })
+    const remoteIp =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      request.headers.get('x-real-ip') ||
+      undefined
+
+    const turnstile = await verifyTurnstileToken(body.turnstileToken, remoteIp)
+    if (!turnstile.ok) {
+      console.error('Turnstile verification failed:', turnstile.errorCodes)
+      return NextResponse.json(
+        {
+          error: 'Verifikasi keamanan gagal. Silakan coba lagi.',
+          turnstileError: true,
+        },
+        { status: 400 }
+      )
     }
 
     const { name, email, subject, message } = validation.data

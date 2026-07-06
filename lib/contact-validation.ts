@@ -58,23 +58,43 @@ export function validateContactPayload(payload: ContactPayload) {
   }
 }
 
-export async function verifyTurnstileToken(token: string | undefined) {
-  const secret = process.env.TURNSTILE_SECRET_KEY
-  if (!secret) return true
+type TurnstileVerifyResult = {
+  success?: boolean
+  'error-codes'?: string[]
+}
 
-  if (!token) {
-    return false
+export async function verifyTurnstileToken(
+  token: string | undefined,
+  remoteIp?: string
+) {
+  const secret = process.env.TURNSTILE_SECRET_KEY?.trim()
+  if (!secret) return { ok: true as const }
+
+  if (!token?.trim()) {
+    return { ok: false as const, errorCodes: ['missing-input-response'] }
+  }
+
+  const params = new URLSearchParams({
+    secret,
+    response: token.trim(),
+  })
+  if (remoteIp) {
+    params.set('remoteip', remoteIp)
   }
 
   const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      secret,
-      response: token,
-    }),
+    body: params,
   })
 
-  const result = (await response.json()) as { success?: boolean }
-  return Boolean(result.success)
+  const result = (await response.json()) as TurnstileVerifyResult
+  if (result.success) {
+    return { ok: true as const }
+  }
+
+  return {
+    ok: false as const,
+    errorCodes: result['error-codes'] ?? ['unknown'],
+  }
 }
