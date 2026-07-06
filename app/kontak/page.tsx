@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import ContactForm from '@/components/ContactForm'
+import { CONTACT_EMAIL } from '@/lib/contact-validation'
 
 export const metadata: Metadata = {
   title: 'Hubungi Kami - PT. Wijaya Kencana Indonesia',
@@ -12,10 +14,9 @@ export default function KontakPage() {
       <div className="w-16 h-1 bg-[#FF7733] mb-8" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Contact Info */}
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">Informasi Kontak</h2>
-          
+
           <div className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="bg-[#0B5E8E] text-white p-3 rounded-lg flex-shrink-0">
@@ -50,8 +51,9 @@ export default function KontakPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800">Email</h3>
-                <p className="text-gray-600 mt-1"></p>
-                <p className="text-gray-600"></p>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#0B5E8E] hover:underline mt-1 inline-block">
+                  {CONTACT_EMAIL}
+                </a>
               </div>
             </div>
 
@@ -69,49 +71,9 @@ export default function KontakPage() {
           </div>
         </div>
 
-        {/* Contact Form */}
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">Kirim Pesan</h2>
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-              <input
-                type="text"
-                placeholder="Masukkan nama lengkap Anda"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B5E8E] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <input
-                type="email"
-                placeholder="Masukkan alamat email Anda"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B5E8E] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Subjek</label>
-              <input
-                type="text"
-                placeholder="Masukkan subjek pesan"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B5E8E] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Pesan</label>
-              <textarea
-                rows={5}
-                placeholder="Tulis pesan Anda di sini..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B5E8E] focus:border-transparent resize-none"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-[#0B5E8E] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#0a527c] transition-colors"
-            >
-              Kirim Pesan
-            </button>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </div>
