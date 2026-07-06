@@ -1,40 +1,11 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import KegiatanDocumentCard from '@/components/KegiatanDocumentCard'
-import Link from 'next/link'
-import PdfThumbnail from '@/components/PdfThumbnail'
 
 export const metadata: Metadata = {
   title: 'Kegiatan Operasional - PT. Wijaya Kencana Indonesia',
   description: 'Kegiatan operasional pemanfaatan hasil hutan kayu PT. Wijaya Kencana Indonesia',
 }
-
-const sopDocuments = [
-  {
-    title: 'Pelaksanaan Tata Batas Areal Kerja',
-    file: 'SOP-1_01_Pelaksanaan Tata Batas Areal Kerja - Rev01.pdf',
-  },
-  {
-    title: 'Penataan Areal Kerja (PAK)',
-    file: 'SOP-1_02_Penataan Areal Kerja (PAK) - Rev01.pdf',
-  },
-  {
-    title: 'Perpetaan',
-    file: 'SOP-1_03_Perpetaan - Rev01.pdf',
-  },
-  {
-    title: 'Inventarisasi Tegakan Sebelum Penebangan (ITSP)',
-    file: 'SOP-1_04_Inventarisasi Tegakan Sebelum Penebangan (ITSP) - Rev01.pdf',
-  },
-  {
-    title: 'Pemasangan Titik Kontrol GPS',
-    file: 'SOP-1_05_Pemasangan Titik Kontrol GPS - Rev01.pdf',
-  },
-  {
-    title: 'Survey Topografi',
-    file: 'SOP-1_06_Survey Topografi - Rev01.pdf',
-  },
-]
 
 const tahapanKegiatan = [
   {
@@ -116,50 +87,6 @@ export default function KegiatanOperasionalPage() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#0B5E8E]">SOP Kegiatan Operasional</h2>
-            <div className="w-16 h-1 bg-[#FF7733] mt-3" />
-            <p className="mt-4 text-gray-600 max-w-3xl">
-              Standar Operasional Prosedur (SOP) kegiatan operasional PT. Wijaya Kencana Indonesia.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {sopDocuments.map((document) => {
-              const href = `/kegiatan/${encodeURIComponent(document.file)}`
-
-              return (
-                <article
-                  key={document.file}
-                  className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <div className="bg-[#F3F4F6]">
-                    <div className="relative aspect-[16/11] w-full overflow-hidden bg-[#EEF2F7]">
-                      <PdfThumbnail src={href} title={document.title} />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-black/10" />
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-800 line-clamp-2 mb-4">{document.title}</h3>
-                    <Link
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-lg bg-[#0B5E8E] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#095177]"
-                    >
-                      Buka PDF
-                    </Link>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
         </div>
       </section>
 
