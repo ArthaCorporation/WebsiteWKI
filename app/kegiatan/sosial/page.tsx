@@ -39,38 +39,7 @@ export default function KegiatanSosialPage() {
         </div>
 
         <div className="mt-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#0B5E8E] mb-2">Dokumentasi Kegiatan Sosial</h2>
-          <div className="w-16 h-1 bg-[#FF7733] mb-8" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="relative aspect-[3/4] bg-gray-100">
-                <Image
-                  src="/kegiatan/masjid.jpg"
-                  alt="Pembangunan Masjid di Desa Sosepe"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-[#0B5E8E]">Pembangunan Masjid di Desa Sosepe</h3>
-              </div>
-            </div>
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="relative aspect-[4/3] bg-gray-100">
-                <Image
-                  src="/kegiatan/jalan.jpg"
-                  alt="Pembuatan Jalan Penghubung Antara Desa Sosepe dan Desa Kelo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-[#0B5E8E]">Pembuatan Jalan Penghubung Antara Desa Sosepe dan Desa Kelo</h3>
-              </div>
-            </div>
-          </div>
-
+        
           <div className="mb-8">
             <h3 className="text-xl font-bold text-[#0B5E8E] mb-2">SOP Identifikasi, Pemetaan, dan Resolusi Konflik</h3>
             <p className="text-gray-600 max-w-3xl">
@@ -80,7 +49,7 @@ export default function KegiatanSosialPage() {
 
           <KegiatanDocumentCard
             title="SOP Identifikasi, Pemetaan, dan Resolusi Konflik"
-            file="SOP Identifikasi/Pemetaan/Resolusi Konflik.pdf"
+            file="SOP Identifikasi, Pemetaan, Resolusi Konflik.pdf"
           />
         </div>
       </section>
