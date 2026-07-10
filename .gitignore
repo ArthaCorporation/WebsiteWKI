@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+# personal notes
+MY-NOTES.md
+
 # testing
 /coverage
 

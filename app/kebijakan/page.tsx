@@ -81,6 +81,12 @@ const documents = [
     file: 'Surat Komitmen Bebas Korupsi dan Penyuapan PT WKI.pdf',
     tag: 'Integritas',
   },
+  {
+    title: 'Surat Pernyataan Tidak Menggunakan GMO',
+    description: 'Pernyataan perusahaan bahwa tidak menggunakan Genetically Modified Organisms (GMO) dalam produksi.',
+    file: 'Surat Pernyataan Tidak Menggunakan GMO.pdf',
+    tag: 'Lingkungan',
+  },
 ]
 
 export default function KebijakanPage() {
