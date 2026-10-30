@@ -59,7 +59,6 @@ export default function TentangPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-[#0B5E8E]">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">🎯</span>
               <h3 className="text-2xl font-bold text-[#0B5E8E]">Visi</h3>
             </div>
             <p className="text-gray-600 leading-relaxed text-lg italic text-justify">
@@ -68,7 +67,6 @@ export default function TentangPage() {
           </div>
           <div className="bg-white rounded-xl shadow-md p-8 border-t-4 border-[#FF7733]">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">🚀</span>
               <h3 className="text-2xl font-bold text-[#FF7733]">Misi</h3>
             </div>
             <ul className="space-y-3 text-gray-600 text-justify">
