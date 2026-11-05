@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getBeritaList } from '@/lib/firestore-server'
 
-const BASE_URL = 'https://wki-poleko.com'
+const BASE_URL = 'https://wijayakencana.co.id'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const beritaList = await getBeritaList()
