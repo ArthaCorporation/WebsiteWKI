@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "set-admin": "node --env-file=.env.local scripts/set-admin.mjs"
   },
   "repository": {
     "type": "git",

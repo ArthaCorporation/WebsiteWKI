@@ -36,6 +36,14 @@ interface AdminUser {
 
 type Tab = 'berita' | 'admin'
 
+// Attach the signed-in admin's ID token so the API routes can verify the caller.
+const authFetch = async (url: string, init: RequestInit = {}) => {
+  const token = await auth.currentUser?.getIdToken()
+  const headers = new Headers(init.headers)
+  if (token) headers.set('Authorization', `Bearer ${token}`)
+  return fetch(url, { ...init, headers })
+}
+
 export default function AdminDashboard() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<Tab>('berita')
@@ -97,7 +105,7 @@ export default function AdminDashboard() {
   const uploadToCloudinary = async (file: File): Promise<string> => {
     const fd = new FormData()
     fd.append('file', file)
-    const response = await fetch('/api/upload', { method: 'POST', body: fd })
+    const response = await authFetch('/api/upload', { method: 'POST', body: fd })
     if (!response.ok) {
       const errorData = await response.json()
       throw new Error(`Upload failed: ${errorData.error}`)
@@ -162,7 +170,7 @@ export default function AdminDashboard() {
     setUsersLoading(true)
     setUsersError(null)
     try {
-      const res = await fetch('/api/admin/users')
+      const res = await authFetch('/api/admin/users')
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
       setAdminUsers(data.users)
@@ -181,7 +189,7 @@ export default function AdminDashboard() {
     e.preventDefault()
     setUserSubmitting(true)
     try {
-      const res = await fetch('/api/admin/users', {
+      const res = await authFetch('/api/admin/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userForm),
@@ -205,7 +213,7 @@ export default function AdminDashboard() {
     }
     if (!confirm(`Hapus admin "${email}"? Tindakan ini tidak dapat dibatalkan.`)) return
     try {
-      const res = await fetch('/api/admin/users', {
+      const res = await authFetch('/api/admin/users', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ uid }),

@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/firebase-admin';
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -8,6 +9,9 @@ cloudinary.config({
 });
 
 export async function POST(request: Request) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
+
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;

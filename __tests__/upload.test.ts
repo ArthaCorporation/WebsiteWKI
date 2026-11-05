@@ -1,4 +1,10 @@
 import { POST } from '@/app/api/upload/route'
+import { requireAdmin } from '@/lib/firebase-admin'
+import { NextResponse } from 'next/server'
+
+jest.mock('@/lib/firebase-admin', () => ({
+  requireAdmin: jest.fn().mockResolvedValue(null),
+}))
 
 jest.mock('cloudinary', () => ({
   v2: {
@@ -19,6 +25,14 @@ function makeRequest(formData: FormData): Request {
 }
 
 describe('POST /api/upload', () => {
+  it('rejects callers who are not admins', async () => {
+    ;(requireAdmin as jest.Mock).mockResolvedValueOnce(
+      NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    )
+    const response = await POST(makeRequest(new FormData()))
+    expect(response.status).toBe(401)
+  })
+
   it('returns 400 when no file is provided', async () => {
     const formData = new FormData()
     const response = await POST(makeRequest(formData))

@@ -1,5 +1,6 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
+import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
@@ -38,4 +39,24 @@ function getAdminApp() {
 
 export function getAdminAuth() {
   return getAuth(getAdminApp())
+}
+
+// Returns null if the request carries a valid ID token for a user with the
+// `admin` custom claim; otherwise returns the error response to send back.
+export async function requireAdmin(request: Request): Promise<NextResponse | null> {
+  const header = request.headers.get('Authorization') ?? ''
+  const token = header.startsWith('Bearer ') ? header.slice(7) : ''
+  if (!token) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  try {
+    const decoded = await getAdminAuth().verifyIdToken(token)
+    if (decoded.admin !== true) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+    return null
+  } catch {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 }

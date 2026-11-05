@@ -1,10 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // berita: anyone can read, only authenticated admins can write
+    // berita: anyone can read, only users with the `admin` custom claim can write
     match /berita/{docId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null;
+      allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
     }
 
     // deny all other collections by default
